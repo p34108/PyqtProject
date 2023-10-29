@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="images">
+    <file>free-icon-algebra-5090382.png</file>
+    <file>free-icon-graph-bar-888000.png</file>
+    <file>free-icon-about-7647315.png</file>
+    <file>free-icon-calculator-5351432.png</file>
+  </qresource>
+</RCC>
