@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1391</width>
-    <height>884</height>
+    <width>1340</width>
+    <height>794</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -31,26 +34,26 @@
     <property name="styleSheet">
      <string notr="true">QTabWidget::pane
 {
-	border: 1px;
-	background: rgb(35, 40, 49);
+  border: 1px;
+  background: rgb(35, 40, 49);
 }
 QTabBar::tab
 {
-	width: 330px;
-	height:50px;
-	background: rgb(76, 81, 93);
+  width: 330px;
+  height:50px;
+  background: rgb(76, 81, 93);
 }
 QTabBar::tab:selected
 {
-	background: rgb(35, 40, 49);
+  background: rgb(35, 40, 49);
 }
 QTabBar::tab:hover
 {
-	background: rgb(56, 62, 73);
+  background: rgb(56, 62, 73);
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -58,7 +61,7 @@ QTabBar::tab:hover
       <height>43</height>
      </size>
     </property>
-    <widget class="QWidget" name="grap">
+    <widget class="QWidget" name="grapdisplay">
      <attribute name="icon">
       <iconset resource="images.qrc">
        <normaloff>:/images/free-icon-algebra-5090382.png</normaloff>:/images/free-icon-algebra-5090382.png</iconset>
@@ -107,7 +110,7 @@ QTabBar::tab:hover
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1391</width>
+     <width>1340</width>
      <height>21</height>
     </rect>
    </property>

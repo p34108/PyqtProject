@@ -1,17 +1,20 @@
 import io
+import numexpr as ne
 import sys
-from PyQt5 import uic
-from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QWidget, QTabWidget
+import matplotlib.pyplot as plt
+import numpy as np
+from PyQt5.QtGui import QIcon, QPixmap, QColor
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
 import warnings
 
 warnings.filterwarnings("ignore", category=Warning)
 
 
-class FlagMaker(QMainWindow):
+class MainClass(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setFixedSize(1340, 794)
         self.ui = uic.loadUi('projectstate.ui', self)
         self.icon = QIcon()
         self.icon.addPixmap(QPixmap('free-icon-algebra-5090382.png '))
@@ -19,15 +22,47 @@ class FlagMaker(QMainWindow):
         self.tabWidget.setTabIcon(1, QIcon('free-icon-calculator-5351432.png'))
         self.tabWidget.setTabIcon(2, QIcon('free-icon-graph-bar-888000.png'))
         self.tabWidget.setTabIcon(3, QIcon('free-icon-about-7647315.png'))
-        layout = QtWidgets.QVBoxLayout()
-        self.CalculatorTab.setLayout(layout)
+        layout_cal = QtWidgets.QVBoxLayout()
+        layout_grap = QtWidgets.QVBoxLayout()
+        self.CalculatorTab.setLayout(layout_cal)
         self.calculator = Calculator()
         self.CalculatorTab.layout().addWidget(self.calculator)
 
+        self.grapdisplay.setLayout(layout_grap)
+        self.graphic = Graph_draw()
+        self.grapdisplay.layout().addWidget(self.graphic)
 
 
-        # x = io.StringIO(template)
-        # uic.loadUi(x, self)
+class Graph_draw(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = uic.loadUi('grapics.ui', self)
+        self.draw.clicked.connect(self.draw_graph)
+
+    def draw_graph(self):
+        try:
+            self.statusbar.showMessage("", 0)
+            xmin = int(self.minvalue.text())
+            xmax = int(self.maxvalue.text())
+            dx = 1
+            x = np.arange(xmin, xmax, dx)
+            funcs = [self.input_textEdit.toPlainText()]
+            new_funcs = [f if 'x' in f else 'x ** 0 * ({})'.format(f) for f in funcs]
+            [plt.plot(x, ne.evaluate(f), linewidth=1.5) for f in new_funcs]
+            plt.title('Графики функций')
+            plt.xlabel('x')
+            plt.ylabel('y')
+            plt.legend(funcs)
+            plt.show()
+        except KeyError:
+            valid = QMessageBox.question(self, 'ERROR',
+                                         "<FONT COLOR='#ffffff'>Ошибка ввода, пожалуйста введите верную функуию</FONT>",
+                                         QMessageBox.Ok)
+        except SyntaxError:
+            valid = QMessageBox.question(self, 'ERROR',
+                                         "<FONT COLOR='#ffffff'>Ошибка ввода, пожалуйста введите верную функуию</FONT>",
+                                         QMessageBox.Ok)
+
 
 template = """<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -689,13 +724,15 @@ class Calculator(QWidget):
             self.result()
 
     def result(self):
-        self.data = eval(self.data_eval)
-        self.data_eval = str(self.data)
-        self.table.display(self.data)
-        self.data = ''
+        try:
+            self.data = eval(self.data_eval)
+            self.data_eval = str(self.data)
+            self.table.display(self.data)
+            self.data = ''
+        except ZeroDivisionError:
+            self.table.display('error')
 
     def calc(self):
-        print(1)
         if self.data_eval:
             self.result()
             if self.data_eval[-1] not in ['+', '-', '/', '*']:
@@ -712,6 +749,6 @@ def except_hook(cls, exception, traceback):
 if __name__ == '__main__':
     sys.excepthook = except_hook
     app = QApplication(sys.argv)
-    ex = FlagMaker()
+    ex = MainClass()
     ex.show()
     sys.exit(app.exec_())
