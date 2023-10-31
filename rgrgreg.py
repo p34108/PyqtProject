@@ -1,12 +1,13 @@
-import io
 import numexpr as ne
 import sys
+import io
 import matplotlib.pyplot as plt
 import numpy as np
+from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QWidget, QPushButton, QComboBox, \
-    QColorDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QWidget, QPushButton, QComboBox, QColorDialog
 from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5 import QtWidgets
 import warnings
 
 warnings.filterwarnings("ignore", category=Warning)
@@ -43,6 +44,7 @@ class InputTypeLineError(InputError):
 class InputColourGraphError(InputError):
     pass
 
+
 class Graph_draw(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -50,7 +52,6 @@ class Graph_draw(QMainWindow):
         self.array_colourgraph, self.array_colourmain, self.array_typeline = [
             (0, 0, 0)], [(255, 255, 255)], ['-']
         self.ui = uic.loadUi('grapics.ui', self)
-        # self.ui = uic.loadUi('grapics.ui', self)
         self.draw.clicked.connect(self.draw_graph)
         self.draw.setIcon(QIcon('free-icon-build-603832.png'))
         self.resertButton.setIcon(QIcon('free-icon-reset-8651174.png'))
@@ -64,7 +65,6 @@ class Graph_draw(QMainWindow):
             xmax = int(self.maxvalue.text())
             dx = 0.01
             x = np.arange(xmin, xmax, dx)
-            fig = plt.figure(facecolor='#%02x%02x%02x' % self.array_colourmain[0])
             funcs = self.input_textEdit.toPlainText().split('\n')
             new_funcs = [f if 'x' in f else 'x ** 0 * ({})'.format(f) for f in funcs]
             if self.flag:
@@ -869,6 +869,7 @@ class Calculator(QWidget):
         self.btn_clear.clicked.connect(self.clear)
         self.btn_sqrt.clicked.connect(self.sqrt)
         self.btn_fact.clicked.connect(self.fact)
+
         self.opp = QPushButton('Настройки калькулятоа', self)
         self.opp.resize(320, 60)
         self.opp.setStyleSheet('''
@@ -877,12 +878,12 @@ class Calculator(QWidget):
         self.opp.move(700, 30)
         self.opp.clicked.connect(self.oppion)
 
-        self.data = ''
-        self.data_eval = ''
-
     def oppion(self):
         url = QtCore.QUrl("https://boulderbugle.com/mathpyqt5-yhgtb85m")
         QtGui.QDesktopServices.openUrl(url)
+
+        self.data = ''
+        self.data_eval = ''
 
     def real_fact(self, n):
         if n < 0:

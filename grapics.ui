@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1340</width>
-    <height>1590</height>
+    <width>1341</width>
+    <height>748</height>
    </rect>
   </property>
   <property name="font">
@@ -27,13 +27,7 @@ QStatusBar
  {
     color: red;
 }
-QMessageBox {
-    background-color: rgb(51, 51, 51);
-}
-
-QMessageBox QLabel {
-    color: rgb(200, 200, 200);
-}</string>
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="draw">
@@ -62,14 +56,24 @@ QMessageBox QLabel {
     <property name="text">
      <string>Построить граффик</string>
     </property>
+    <property name="icon">
+     <iconset resource="images_button.qrc">
+      <normaloff>:/images/free-icon-build-603832.png</normaloff>:/images/free-icon-build-603832.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
+    </property>
    </widget>
    <widget class="QTextEdit" name="input_textEdit">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>130</y>
-      <width>761</width>
-      <height>31</height>
+      <x>250</x>
+      <y>100</y>
+      <width>731</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="font">
@@ -110,13 +114,16 @@ QMessageBox QLabel {
     <property name="maximum">
      <number>500</number>
     </property>
+    <property name="value">
+     <number>-20</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>30</x>
       <y>280</y>
-      <width>271</width>
+      <width>281</width>
       <height>51</height>
      </rect>
     </property>
@@ -126,7 +133,7 @@ QMessageBox QLabel {
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Введите минимальное значение&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Введите минимальное значение x&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -134,7 +141,7 @@ QMessageBox QLabel {
      <rect>
       <x>20</x>
       <y>390</y>
-      <width>271</width>
+      <width>281</width>
       <height>61</height>
      </rect>
     </property>
@@ -144,7 +151,7 @@ QMessageBox QLabel {
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Введите максимальное значение&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Введите максимальное значение x&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -209,6 +216,75 @@ QMessageBox QLabel {
     <property name="maximum">
      <number>500</number>
     </property>
+    <property name="value">
+     <number>20</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="opshionButton">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>600</y>
+      <width>321</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Дополнительные настройки</string>
+    </property>
+    <property name="icon">
+     <iconset resource="images_button.qrc">
+      <normaloff>:/images/free-icon-settings-4043261.png</normaloff>:/images/free-icon-settings-4043261.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resertButton">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>600</y>
+      <width>321</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Сбросить изменения</string>
+    </property>
+    <property name="icon">
+     <iconset resource="images_button.qrc">
+      <normaloff>:/images/free-icon-reset-8651174.png</normaloff>:/images/free-icon-reset-8651174.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>63</width>
+      <height>64</height>
+     </size>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -216,7 +292,7 @@ QMessageBox QLabel {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1340</width>
+     <width>1341</width>
      <height>21</height>
     </rect>
    </property>
@@ -227,6 +303,8 @@ QMessageBox QLabel {
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="images_button.qrc"/>
+ </resources>
  <connections/>
 </ui>

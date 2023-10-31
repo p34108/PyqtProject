@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="images">
+    <file>free-icon-reset-8651174.png</file>
+    <file>free-icon-settings-4043261.png</file>
+    <file>free-icon-function-5090100.png</file>
+    <file>free-icon-build-603832.png</file>
+  </qresource>
+</RCC>
