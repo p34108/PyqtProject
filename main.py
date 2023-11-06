@@ -1,12 +1,13 @@
 import io
 import numexpr as ne
+import csv
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QWidget, QPushButton, QComboBox, \
-    QColorDialog
-from PyQt5.QtGui import QIcon, QPixmap
+    QColorDialog, QFileDialog, QTableWidgetItem
+from PyQt5.QtGui import QIcon
 import warnings
 
 warnings.filterwarnings("ignore", category=Warning)
@@ -23,6 +24,8 @@ class MainClass(QMainWindow):
         self.tabWidget.setTabIcon(3, QIcon('free-icon-about-7647315.png'))
         layout_cal = QtWidgets.QVBoxLayout()
         layout_grap = QtWidgets.QVBoxLayout()
+        layout_diag = QtWidgets.QVBoxLayout()
+
         self.CalculatorTab.setLayout(layout_cal)
         self.calculator = Calculator()
         self.CalculatorTab.layout().addWidget(self.calculator)
@@ -30,6 +33,10 @@ class MainClass(QMainWindow):
         self.grapdisplay.setLayout(layout_grap)
         self.graphic = Graph_draw()
         self.grapdisplay.layout().addWidget(self.graphic)
+
+        self.diag.setLayout(layout_diag)
+        self.diag2 = Diagram()
+        self.diag.layout().addWidget(self.diag2)
 
 
 class InputError(Exception):
@@ -42,6 +49,7 @@ class InputTypeLineError(InputError):
 
 class InputColourGraphError(InputError):
     pass
+
 
 class Graph_draw(QMainWindow):
     def __init__(self):
@@ -937,6 +945,82 @@ class Calculator(QWidget):
             else:
                 self.data_eval = self.data_eval[0:len(self.data_eval) - 1] + self.sender().text()
             self.data_eval = self.data_eval.replace('^', '**')
+
+
+class Diagram(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = uic.loadUi('diag.ui', self)
+        self.draw_diag.clicked.connect(self.draw_diagram)
+        self.open_menu()
+        self.choose_file.clicked.connect(self.choose)
+        self.clean_up.clicked.connect(self.clean)
+        self.list1 = []
+        self.list2 = []
+        self.list3 = []
+
+    def draw_diagram(self):
+        try:
+            assert len(self.list2) == 1
+            if self.choose_diag.currentText() == 'Столбчатая диаграмма':
+                plt.bar(self.list1, [float(i) for i in self.list2[0]])
+                plt.title('Столбчатая диаграмма')
+                plt.show()
+            elif self.choose_diag.currentText() == 'Круговая диаграмма':
+                plt.pie([float(i) for i in self.list2[0]], labels=self.list1, autopct='%1.1f%%')
+                plt.title("Круговая диаграмма")
+                plt.show()
+        except AssertionError:
+            valid = QMessageBox.question(self, 'ERROR',
+                                         "<FONT COLOR='#ffffff'>Выделите два столбца</FONT>",
+                                         QMessageBox.Ok)
+
+    def choose(self):
+        name = QFileDialog.getOpenFileName(
+            self, 'Выбор', '',
+            'Csv файл (*.csv)')[0]
+        self.loadTable(name)
+
+    def loadTable(self, table_name):
+        with open(table_name, encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            title = next(reader)
+            self.tableWidget.setColumnCount(len(title))
+            self.tableWidget.setHorizontalHeaderLabels(title)
+            self.tableWidget.setRowCount(0)
+            for i, row in enumerate(reader):
+                self.tableWidget.setRowCount(
+                    self.tableWidget.rowCount() + 1)
+                for j, elem in enumerate(row):
+                    self.tableWidget.setItem(
+                        i, j, QTableWidgetItem(elem))
+        self.tableWidget.resizeColumnsToContents()
+        self.tableWidget.selectionModel().selectionChanged.connect(self.on_selectionChanged)
+
+    def on_selectionChanged(self, selected):
+        for ix in selected.indexes():
+            print(ix.row(), ix.column(), self.tableWidget.item(ix.row(), ix.column()).text())
+            if ix.column() == 0:
+                self.list1.append(self.tableWidget.item(ix.row(), ix.column()).text())
+            else:
+                if ix.column() not in self.list3:
+                    self.list3.append(ix.column())
+                    self.list2.append([self.tableWidget.item(ix.row(), ix.column()).text()])
+                else:
+                    self.list2[ix.column() - 1].append(self.tableWidget.item(ix.row(), ix.column()).text())
+        # print(self.list1)
+        # print(self.list2)
+
+    def open_menu(self):
+        self.choose_diag.addItems(['Столбчатая диаграмма', 'Круговая диаграмма'])
+        self.choose_diag.setStyleSheet('''
+                color: rgb(255, 255, 255);
+                ''')
+
+    def clean(self):
+        self.list1 = []
+        self.list2 = []
+        self.list3 = []
 
 
 def except_hook(cls, exception, traceback):

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1340</width>
+    <height>1590</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(35, 40, 49);
+QStatusBar
+ {
+    color: red;
+}
+QMessageBox {
+    background-color: rgb(51, 51, 51);
+}
+
+QMessageBox QLabel {
+    color: rgb(200, 200, 200);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="choose_file">
+    <property name="geometry">
+     <rect>
+      <x>68</x>
+      <y>50</y>
+      <width>250</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Выбрать файл</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>free-icon-choose_file-5090100.png</normaloff>free-icon-choose_file-5090100.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>55</width>
+      <height>55</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="draw_diag">
+    <property name="geometry">
+     <rect>
+      <x>1022</x>
+      <y>50</y>
+      <width>250</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Построить диаграмму</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>free-icon-build_diag-7647315.png</normaloff>free-icon-build_diag-7647315.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="choose_diag">
+    <property name="geometry">
+     <rect>
+      <x>386</x>
+      <y>50</y>
+      <width>250</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    color: white;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>240</y>
+      <width>1120</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTableWidget {
+    color: white;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clean_up">
+    <property name="geometry">
+     <rect>
+      <x>704</x>
+      <y>50</y>
+      <width>250</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Сбросить выделение</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1340</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="images_button.qrc"/>
+ </resources>
+ <connections/>
+</ui>
